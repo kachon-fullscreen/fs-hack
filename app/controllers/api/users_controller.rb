@@ -27,6 +27,7 @@ class Api::UsersController < ApplicationController
   end
 
   def community_info
+    CommunityData.init()
     #data = CommunityData.community_info
     creator_type = params[:creator_type]
     creators = CommunityData.community_info
