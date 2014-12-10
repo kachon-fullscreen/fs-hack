@@ -27,15 +27,25 @@ class Api::UsersController < ApplicationController
   end
 
   def community_info
-    data = CommunityData.community_info
+    #data = CommunityData.community_info
+    creator_type = params[:creator_type]
+    creators = CommunityData.community_info
+    if creator_type
+      creators = []
+      CommunityData.community_info.each do |creator|
+        if creator['creator_types'].include?(creator_type)
+          creators << creator
+        end
+      end
+    end
 
-    render json: data.sort {|a, b| b["reach"] <=> a['reach'] }
+    render json: creators.sort {|a, b| b["reach"] <=> a['reach'] }
   end
 
   def feed
     user_id = params[:user_id]
-    data = CommunityData.profiles[user_id]
-    render json: {user_id: data}
+    profile_data = CommunityData.profiles[user_id]
+    render json: {user_id: profile_data}
   end 
 
 

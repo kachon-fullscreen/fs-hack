@@ -11,7 +11,7 @@ class CommunityData
         @profiles = {}
         (0..10).each do |index| 
           #puts "#{index}"
-          url = "https://communityapi.fullscreen.net/api/v1/search/users?limit=20&offset=#{index*20}&order=relevance&min_reach=5000"
+          url = "https://communityapi.fullscreen.net/api/v1/search/users?creator_types=musician,gamer&limit=20&offset=#{index*20}&order=relevance&min_reach=500"
           #puts "#{url}"
           cookie = {_accounts_session: ENV['SID']}
           users = HTTParty.get(url, cookies: cookie)
@@ -32,7 +32,7 @@ class CommunityData
         end
         self.done_init = 'init already'
       end
-      puts "stop done_init #{done_init}"
+      puts "stop done_init #{done_init} #{community_info.count}"
     end
 
   end
