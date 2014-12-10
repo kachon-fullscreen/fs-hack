@@ -16,6 +16,8 @@ FsHack::Application.routes.draw do
         get :community_info
       end
 
+      match '/feed' => 'users#feed'
+
     end
 
   end

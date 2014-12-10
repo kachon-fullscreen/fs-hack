@@ -27,11 +27,15 @@ class Api::UsersController < ApplicationController
   end
 
   def community_info
-
     data = JSON.parse(File.read("#{Rails.root}/config/community.json"))
-
-    render json: data.sort_by {|hash| hash["reach"]}
-
+    render json: data.sort {|a, b| b["reach"] <=> a['reach'] }
   end
+
+  def feed
+    user_id = params[:user_id]
+    data = JSON.parse(File.read("#{Rails.root}/config/profile.json"))
+    render json: {user_id: data[user_id]}
+  end 
+
 
 end
