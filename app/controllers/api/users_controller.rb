@@ -29,12 +29,14 @@ class Api::UsersController < ApplicationController
   def community_info
     CommunityData.init()
     #data = CommunityData.community_info
-    creator_type = params[:creator_type]
+    creator_types = params[:creator_type]
     creators = CommunityData.community_info
-    if creator_type
+    if creator_types
       creators = []
+      creator_types = creator_types.split(",")
       CommunityData.community_info.each do |creator|
-        if creator['creator_types'].include?(creator_type)
+        intersect = creator['creator_types'] & creator_types
+        if intersect.sort == creator_types.sort
           creators << creator
         end
       end
