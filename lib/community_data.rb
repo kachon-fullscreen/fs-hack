@@ -21,11 +21,10 @@ class CommunityData
               slug = user['slug']
               profile_url = "https://communityapi.fullscreen.net/api/v1/user/#{slug}/activities/profiles/"
               profile_data = HTTParty.get(profile_url, cookies: cookie)
-              # puts profile_data.body.class
-              # puts profile_data
               if !profile_data.body.empty?
-                @community_info << user
-                @profiles[slug] = profile_data
+                reputation = {'reputation' => Random.rand(1..5)}
+                @community_info << user.merge(reputation)
+                @profiles[slug] = profile_data.parsed_response[0].merge(reputation)
               end
             end
           end
