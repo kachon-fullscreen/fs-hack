@@ -24,7 +24,7 @@ class CommunityData
               if !profile_data.body.empty?
                 reputation = {'reputation' => Random.rand(1..5)}
                 @community_info << user.merge(reputation)
-                @profiles[slug] = profile_data.parsed_response[0].merge(reputation)
+                @profiles[slug] = profile_data
               end
             end
           end
